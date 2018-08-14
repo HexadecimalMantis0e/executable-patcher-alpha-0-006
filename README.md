@@ -20,7 +20,7 @@ Always run this script on an unmodified copy of the original file as it does not
 usage: patcher.py [-h] [-e ENABLED | -d DISABLED] file
 
 TLOMN Build Alpha 0.006 Patcher
-Version: 1.0.0
+Version: 1.1.0
 
 positional arguments:
   file                  File to be patched
@@ -33,6 +33,7 @@ optional arguments:
                         No not apply listed patches
 
 patches:
+  soundtableamount      Avoid SoundTable error message
   screenresini          Allow ini to control screen resolution
   screenres4            Set default screen resolution to 4
   bitdepth24            Set the bit depth to 24

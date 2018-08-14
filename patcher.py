@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 BIONICLE: The Legend of Mata Nui Executable Patcher for build Alpha 0.006
-Version: 1.0.0
+Version: 1.1.0
 
 Copyright (c) 2018 JrMasterModelBuilder
 Licensed under the Mozilla Public License, v. 2.0
@@ -52,6 +52,16 @@ class PatchWin10(Patch):
 			0xC3                                      # ret
 		]))
 
+class PatchSoundTableAmount(Patch):
+	name = 'soundtableamount'
+	description = 'Avoid SoundTable error message'
+	def patch(self):
+		# Change expected amount of SoundTable entries to avoid error message.
+		self.fp.seek(0x14E374) # 0x54EF74
+		self.fp.write(bytearray([
+			0x81, 0xBD, 0xD4, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+		]))
+
 class PatchScreenRes4(Patch):
 	name = 'screenres4'
 	description = 'Set default screen resolution to 4'
@@ -91,7 +101,7 @@ class PatchScreenResINI(Patch):
 			0x8D, 0x85, 0x2C, 0xFF, 0xFF, 0xFF, # lea     eax, [ebp-0xD4]
 			0x50,                               # push    eax
 			0xE8, 0xCF, 0xAE, 0x06, 0x00,       # call    ?GetScreenData@GcSaver@@SAXAAG0AAE1111@Z
-			0x83, 0xC4, 0x1C                    # add     esp, 0x1C 
+			0x83, 0xC4, 0x1C                    # add     esp, 0x1C
 		], 0x71)))
 
 		# Replace GcGraphicsOptions::GetScreenResolution switch statement in ScPlatformScreen::BuildDeviceList.
@@ -233,7 +243,7 @@ def main():
 	parser = argparse.ArgumentParser(
 		description=os.linesep.join([
 			'TLOMN Build Alpha 0.006 Patcher',
-			'Version: 1.0.0'
+			'Version: 1.1.0'
 		]),
 		epilog=os.linesep.join([
 			'patches:',
